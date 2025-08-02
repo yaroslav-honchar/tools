@@ -44,7 +44,7 @@ export class FontsController {
         targetFormats: {
           type: 'array',
           items: { type: 'string' },
-          example: ['woff', 'woff2'],
+          example: SUPPORTED_OUTPU_FONT_FORMATS,
           description: 'Target formats for conversion',
           enum: SUPPORTED_OUTPU_FONT_FORMATS,
         },

@@ -53,7 +53,7 @@ export class FontsService {
     return this.archiver.archive(results);
   }
 
-  convertTtfToWoff(ttfFile: Express.Multer.File) {
+  convertTtfToWoff(ttfFile: Express.Multer.File): Buffer {
     try {
       const ttfBuffer = ttfFile.buffer;
       return Buffer.from(ttf2woff(ttfBuffer));
@@ -66,10 +66,10 @@ export class FontsService {
     }
   }
 
-  convertTtfToWoff2(ttfFile: Express.Multer.File) {
+  convertTtfToWoff2(ttfFile: Express.Multer.File): Buffer {
     try {
-      const ttfBuffer = ttfFile.buffer;
-      return Buffer.from(ttf2woff2(ttfBuffer));
+      const ttfBuffer: Buffer<ArrayBufferLike> = ttfFile.buffer;
+      return Buffer.from(ttf2woff2(ttfBuffer)) as Buffer<ArrayBufferLike>;
     } catch (error) {
       if (error instanceof Error) {
         throw new Error(`[FontsService] Conversion failed: ${error.message}`);
