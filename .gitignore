@@ -12,8 +12,28 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
-# OS
+# Залежності
+/node_modules
+**/node_modules
+/packages/*/node_modules
+/frontend/*/node_modules
+/api/*/node_modules
+
+# Артефакти збірки
+/.next
+/.turbo
+
+# Файли IDE та системи
+.idea
+.vscode
 .DS_Store
+
+# Файли середовища
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Tests
 /coverage
@@ -35,13 +55,6 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# dotenv environment variable files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
-
 # temp directory
 .temp
 .tmp
@@ -52,5 +65,3 @@ pids
 *.seed
 *.pid.lock
 
-# Diagnostic reports (https://nodejs.org/api/report.html)
-report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json

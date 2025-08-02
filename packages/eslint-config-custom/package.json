@@ -1,15 +1,29 @@
 {
   "name": "eslint-config-custom",
   "version": "1.0.0",
+  "private": true,
   "main": "eslint.config.mjs",
   "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules"
+  },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-config-turbo": "^1.10.0",
-    "eslint-plugin-react": "7.33.2",
-    "eslint-plugin-simple-import-sort": "^12.1.1"
+    "@eslint/js": "^9.3.0",
+    "eslint-config-prettier": "^9.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.3.0",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^8.38.0"
+  },
+  "peerDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.9.0",
+    "@typescript-eslint/parser": "^7.9.0",
+    "eslint": "^9.0.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-simple-import-sort": "^12.1.0",
+    "typescript": "^5.0.0"
   },
   "publishConfig": {
     "access": "public"

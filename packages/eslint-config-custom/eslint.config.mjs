@@ -1,6 +1,6 @@
 import configPrettier from "eslint-config-prettier";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
-import tseslint from "typescript-eslint";
+import tsEslint from "typescript-eslint";
 
 import pluginJs from "@eslint/js";
 
@@ -9,13 +9,10 @@ export default [
   {
     ignores: ["dist/*", "node_modules/*", "*.config.{js,mjs,ts}"],
   },
-  {
-    files: ["./**/*.{mjs,cjs,js,jsx,ts,tsx}"],
-  },
 
   // Common js/ts configuration
   pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
+  ...tsEslint.configs.recommended,
 
   // Prettier configuration
   configPrettier,
