@@ -2,16 +2,25 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Header,
   Post,
+  StreamableFile,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiConsumes, ApiOperation } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ConvertFontDto } from './dto/convert-fonts.dto';
 import { FontsService } from './fonts.service';
 import { SUPPORTED_OUTPU_FONT_FORMATS } from './fonts.constant';
 
+@ApiTags('Fonts')
 @Controller('fonts')
 export class FontsController {
   constructor(private readonly fontService: FontsService) {}
@@ -42,6 +51,26 @@ export class FontsController {
       },
     },
   })
+  @ApiResponse({
+    status: 200,
+    description: 'ZIP архів зі шрифтами',
+    content: {
+      'application/zip': {
+        schema: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal Server Error',
+  })
   @UseInterceptors(
     FilesInterceptor('files', 10, {
       limits: {
@@ -66,7 +95,12 @@ export class FontsController {
       },
     }),
   )
-  convertFonts(
+  @Header('Content-Type', 'application/zip')
+  @Header(
+    'Content-Disposition',
+    `attachment; filename="fonts_${Date.now()}.zip"`,
+  )
+  async convertFonts(
     @UploadedFiles() files: Express.Multer.File[],
     @Body() convertFontDto: ConvertFontDto,
   ) {
@@ -74,16 +108,23 @@ export class FontsController {
       throw new BadRequestException('No files uploaded');
     }
 
-    files.forEach((file, index) => {
-      console.log(`File ${index}:`, {
-        originalname: file.originalname,
-        mimetype: file.mimetype,
-        size: file.size,
-      });
-    });
+    try {
+      const zipBuffer = await this.fontService.convertAndZip(
+        files,
+        convertFontDto.targetFormats,
+      );
 
-    console.log('convertFontDto: ', convertFontDto);
+      return new StreamableFile(zipBuffer);
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new BadRequestException(
+          `Font conversion failed: ${error.message}`,
+        );
+      }
 
-    return { message: `Received ${files.length} files` };
+      throw new BadRequestException(
+        `Font conversion failed with unknown error`,
+      );
+    }
   }
 }
