@@ -9,9 +9,13 @@ import {
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiOperation } from '@nestjs/swagger';
 import { ConvertFontDto } from './dto/convert-fonts.dto';
+import { FontsService } from './fonts.service';
+import { SUPPORTED_OUTPU_FONT_FORMATS } from './fonts.constant';
 
 @Controller('fonts')
 export class FontsController {
+  constructor(private readonly fontService: FontsService) {}
+
   @Post('/convert')
   @ApiOperation({ summary: 'Convert TTF fonts files to different formats' })
   @ApiConsumes('multipart/form-data')
@@ -33,6 +37,7 @@ export class FontsController {
           items: { type: 'string' },
           example: ['woff', 'woff2'],
           description: 'Target formats for conversion',
+          enum: SUPPORTED_OUTPU_FONT_FORMATS,
         },
       },
     },

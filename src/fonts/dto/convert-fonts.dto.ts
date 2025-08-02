@@ -1,15 +1,21 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ArrayNotEmpty, IsArray, IsString } from 'class-validator';
+import { ArrayNotEmpty, IsArray, IsIn, IsString } from 'class-validator';
 import { Transform } from 'class-transformer';
+import { SUPPORTED_OUTPU_FONT_FORMATS } from '../fonts.constant';
 
 export class ConvertFontDto {
   @ApiProperty({
     description: 'Target formats for conversion',
     example: ['woff', 'woff2'],
+    enum: SUPPORTED_OUTPU_FONT_FORMATS,
   })
   @IsArray()
   @ArrayNotEmpty()
   @IsString({ each: true })
+  @IsIn(SUPPORTED_OUTPU_FONT_FORMATS, {
+    each: true,
+    message: `Each format must be either: ${SUPPORTED_OUTPU_FONT_FORMATS.join(', ')}`,
+  })
   @Transform(({ value }) => {
     const reqValue = value as string | string[];
 
