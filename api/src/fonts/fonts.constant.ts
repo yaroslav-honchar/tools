@@ -1,1 +1,1 @@
-export const SUPPORTED_OUTPU_FONT_FORMATS = ['woff', 'woff2'];
+export const SUPPORTED_OUTPU_FONT_FORMATS = ["woff", "woff2"];

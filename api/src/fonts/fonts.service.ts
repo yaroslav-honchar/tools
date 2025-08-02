@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import ttf2woff from 'ttf2woff';
-import ttf2woff2 from 'ttf2woff2';
-import { ArchiverService } from '../common/services/archiver.service';
-import { ArchiveItemType } from '../types/archive-item.type';
+import { ArchiverService } from "../common/services/archiver.service";
+import { ArchiveItemType } from "../types/archive-item.type";
+
+import { Injectable } from "@nestjs/common";
+import ttf2woff from "ttf2woff";
+import ttf2woff2 from "ttf2woff2";
 
 export interface FontFormat {
   extension: string;
@@ -12,8 +13,8 @@ export interface FontFormat {
 @Injectable()
 export class FontsService {
   private readonly supportedFormats: Record<string, FontFormat> = {
-    woff: { extension: 'woff', mimeType: 'font/woff' },
-    woff2: { extension: 'woff2', mimeType: 'font/woff2' },
+    woff: { extension: "woff", mimeType: "font/woff" },
+    woff2: { extension: "woff2", mimeType: "font/woff2" },
 
     // ttf: { extension: 'ttf', mimeType: 'font/ttf' },
     // otf: { extension: 'otf', mimeType: 'font/otf' },
@@ -36,13 +37,13 @@ export class FontsService {
         switch (target) {
           case this.supportedFormats.woff.extension:
             results.push({
-              name: originName.replace(/\.ttf$/i, '.woff'),
+              name: originName.replace(/\.ttf$/i, ".woff"),
               buffer: this.convertTtfToWoff(file),
             });
             break;
           case this.supportedFormats.woff2.extension:
             results.push({
-              name: originName.replace(/\.ttf$/i, '.woff2'),
+              name: originName.replace(/\.ttf$/i, ".woff2"),
               buffer: this.convertTtfToWoff2(file),
             });
             break;

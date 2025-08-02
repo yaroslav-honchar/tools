@@ -1,5 +1,6 @@
-import { Module } from '@nestjs/common';
-import { FontsModule } from './fonts/fonts.module';
+import { FontsModule } from "./fonts/fonts.module";
+
+import { Module } from "@nestjs/common";
 
 @Module({
   imports: [FontsModule],
