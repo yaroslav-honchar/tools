@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import ttf2woff from 'ttf2woff';
 import ttf2woff2 from 'ttf2woff2';
-import { ArchiverUtil } from '../common/utils/archiver.util';
+import { ArchiverService } from '../common/services/archiver.service';
 import { ArchiveItemType } from '../types/archive-item.type';
 
 export interface FontFormat {
@@ -21,7 +21,7 @@ export class FontsService {
     // svg: { extension: 'svg', mimeType: 'image/svg+xml' },
   };
 
-  constructor(private readonly archiver: ArchiverUtil) {}
+  constructor(private readonly archiver: ArchiverService) {}
 
   async convertAndZip(
     files: Express.Multer.File[],

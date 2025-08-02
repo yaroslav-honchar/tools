@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { ArchiveItemType } from '../../types/archive-item.type';
 
 @Injectable()
-export class ArchiverUtil {
+export class ArchiverService {
   async archive(items: ArchiveItemType[]): Promise<Buffer> {
     return new Promise((resolve, reject) => {
       const archive = archiver('zip', { zlib: { level: 9 } });
