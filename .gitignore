@@ -1,10 +1,18 @@
-# compiled output
-/dist
-/node_modules
-/build
+# === Node Modules ===
+node_modules/
+**/node_modules/
 
-# Logs
-logs
+# === Build Artifacts ===
+dist/
+**/dist/
+build/
+**/build/
+apps/*/.next/
+apps/*/dist/
+packages/*/dist/
+
+# === Logs ===
+logs/
 *.log
 npm-debug.log*
 pnpm-debug.log*
@@ -12,35 +20,29 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
-# Залежності
-/node_modules
-**/node_modules
-/packages/*/node_modules
-/frontend/*/node_modules
-/api/*/node_modules
+# === Environment Files ===
+.env
+.env.*
+!.env.example
 
-# Артефакти збірки
-/.next
-/.turbo
+# === Turbo repo / Next.js / Cache ===
+.turbo/
+.next/
 
-# Файли IDE та системи
-.idea
-.vscode
+# === Test Output ===
+coverage/
+.nyc_output/
+
+# === OS Files ===
 .DS_Store
 
-# Файли середовища
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Tests
-/coverage
-/.nyc_output
-
-# IDEs and editors
-/.idea
+# === IDE Files ===
+.idea/
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 .project
 .classpath
 .c9/
@@ -48,20 +50,9 @@ lerna-debug.log*
 .settings/
 *.sublime-workspace
 
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-
-# temp directory
-.temp
-.tmp
-
-# Runtime data
-pids
+# === Temporary Files ===
+.tmp/
+.temp/
 *.pid
 *.seed
 *.pid.lock
-

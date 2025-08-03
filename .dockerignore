@@ -1,18 +1,40 @@
+# Dependencies
 node_modules
 */node_modules
 
-npm-debug.log
-pnpm-debug.log
+# Build outputs
+apps/frontend/.next
+apps/backend/dist
 
-dist
-.next
-.turbo
-build
-
-.idea
-.vscode
-.DS_Store
-
+# Development files
 .git
 .gitignore
+README.md
+.env.local
+.env.development
 
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode
+.idea
+
+# Logs
+*.log
+logs
+pids
+*.pid
+*.seed
+
+# Coverage reports
+coverage
+.nyc_output
+
+# Test files
+__tests__
+*.test.ts
+*.test.js
+*.spec.ts
+*.spec.js

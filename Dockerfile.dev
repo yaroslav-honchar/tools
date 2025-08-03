@@ -1,0 +1,27 @@
+FROM node:20-alpine AS base
+
+RUN npm install -g pnpm
+
+WORKDIR /app
+
+# Init monorepo
+FROM base AS deps
+COPY pnpm-workspace.yaml ./
+COPY package.json pnpm-lock.yaml ./
+COPY apps/frontend/package.json ./apps/frontend/
+COPY apps/backend/package.json ./apps/backend/
+COPY packages/*/package.json ./packages/*/
+
+RUN pnpm install
+
+# Frontend development
+FROM deps AS frontend-dev
+WORKDIR /app/apps/frontend
+EXPOSE 4040
+CMD ["pnpm", "dev"]
+
+# Backend development
+FROM deps AS backend-dev
+WORKDIR /app/apps/backend
+EXPOSE 8080
+CMD ["pnpm", "start:dev"]

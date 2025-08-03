@@ -1,20 +1,21 @@
-import { ArchiverService } from "../common/services/archiver.service";
-import { ArchiveItemType } from "../types/archive-item.type";
+import {ArchiverService} from "../common/services/archiver.service";
+import {ArchiveItemType} from "../types/archive-item.type";
 
-import { Injectable } from "@nestjs/common";
+import {Injectable} from "@nestjs/common";
 import ttf2woff from "ttf2woff";
-import ttf2woff2 from "ttf2woff2";
+
+// import ttf2woff2 from "ttf2woff2";
 
 export interface FontFormat {
-  extension: string;
-  mimeType: string;
+    extension: string;
+    mimeType: string;
 }
 
 @Injectable()
 export class FontsService {
   private readonly supportedFormats: Record<string, FontFormat> = {
-    woff: { extension: "woff", mimeType: "font/woff" },
-    woff2: { extension: "woff2", mimeType: "font/woff2" },
+    woff: {extension: "woff", mimeType: "font/woff"},
+    woff2: {extension: "woff2", mimeType: "font/woff2"},
 
     // ttf: { extension: 'ttf', mimeType: 'font/ttf' },
     // otf: { extension: 'otf', mimeType: 'font/otf' },
@@ -22,7 +23,8 @@ export class FontsService {
     // svg: { extension: 'svg', mimeType: 'image/svg+xml' },
   };
 
-  constructor(private readonly archiver: ArchiverService) {}
+  constructor(private readonly archiver: ArchiverService) {
+  }
 
   async convertAndZip(
     files: Express.Multer.File[],
@@ -44,7 +46,7 @@ export class FontsService {
           case this.supportedFormats.woff2.extension:
             results.push({
               name: originName.replace(/\.ttf$/i, ".woff2"),
-              buffer: this.convertTtfToWoff2(file),
+              buffer: await this.convertTtfToWoff2(file),
             });
             break;
         }
@@ -67,10 +69,12 @@ export class FontsService {
     }
   }
 
-  convertTtfToWoff2(ttfFile: Express.Multer.File): Buffer {
+  async convertTtfToWoff2(ttfFile: Express.Multer.File): Promise<Buffer> {
     try {
+      const ttf2woff2 = (await import("ttf2woff2")).default;
+
       const ttfBuffer: Buffer<ArrayBufferLike> = ttfFile.buffer;
-      return Buffer.from(ttf2woff2(ttfBuffer)) as Buffer<ArrayBufferLike>;
+      return Buffer.from(ttf2woff2(ttfBuffer)) as Buffer;
     } catch (error) {
       if (error instanceof Error) {
         throw new Error(`[FontsService] Conversion failed: ${error.message}`);
