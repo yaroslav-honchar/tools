@@ -36,7 +36,6 @@ export default [
       "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-require-imports": "off",
       "@typescript-eslint/consistent-type-imports": "error",
-      "react/no-unescaped-entities": "off",
       "@typescript-eslint/no-unused-vars": "error",
       "@typescript-eslint/no-empty-function": "off",
       "no-unused-vars": "off",

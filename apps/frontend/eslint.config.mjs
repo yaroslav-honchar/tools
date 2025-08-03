@@ -17,6 +17,7 @@ export default [
   },
   {
     rules: {
+      "max-len": 0,
       "simple-import-sort/imports": [
         "warn", {
           groups: [

@@ -1,7 +1,7 @@
 DOCKER_COMPOSE_FILE = docker-compose.dev.yml
 COMPOSE = docker-compose -f $(DOCKER_COMPOSE_FILE)
 
-.PHONY: help install add add-dev up down restart logs clean
+.PHONY: help install add shadcn-add
 
 help: ## Show all available commands
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -20,11 +20,11 @@ install: ## Install all dependencies locally and restart containers
 
 add: ## Add dependency (usage: make add SPC=frontend PKG=package-name)
 	@if [ -z "$(PKG)" ]; then \
-		echo "❌ Please specify package name: make add SPC=frontend PKG=package-name"; \
+		echo "❌ Please specify package name: make add SPC=<workspace> PKG=<package-name>"; \
 		exit 1; \
 	fi
 	@if [ -z "$(SPC)" ]; then \
-		echo "❌ Please specify workspace name: make add SPC=frontend PKG=package-name"; \
+		echo "❌ Please specify workspace name: make add SPC=<workspace> PKG=<package-name>"; \
 		exit 1; \
 	fi
 	@echo "📦 Adding $(PKG) to $(SPC) locally..."
@@ -34,3 +34,12 @@ add: ## Add dependency (usage: make add SPC=frontend PKG=package-name)
 	@echo "✅ Package $(PKG) added to $(SPC)!"
 	@echo "🐳 Restarting..."
 	$(COMPOSE) restart
+
+shadcn-add: ## Add shadcn component
+	@if [ -z "$(UI)" ]; then \
+		echo "❌ Please specify component name: make shadcn-add UI=<component>"; \
+		exit 1; \
+	fi
+	@echo "📦 Adding $(PKG) to $(SPC) locally..."
+	cd ./apps/frontend && pnpm dlx shadcn@latest add $(UI)
+
