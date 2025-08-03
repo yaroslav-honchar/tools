@@ -8,9 +8,9 @@
   "scripts": {
     "lint": "pnpm --recursive --parallel lint",
     "dev": "docker-compose -f docker-compose.dev.yml up",
-    "docker:build": "docker-compose build",
-    "docker:up": "docker-compose up",
-    "docker:down": "docker-compose down",
-    "docker:clean": "docker-compose down -v --rmi all"
+    "docker:build": "docker-compose -f docker-compose.dev.yml build",
+    "docker:up": "docker-compose -f docker-compose.dev.yml up",
+    "docker:down": "docker-compose -f docker-compose.dev.yml down",
+    "docker:clean": "docker-compose -f docker-compose.dev.yml down -v --rmi all"
   }
 }

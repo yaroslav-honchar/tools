@@ -5,10 +5,11 @@ import {NestFactory} from "@nestjs/core";
 import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
 
 const PORT = process.env.PORT || 8080;
+const API_PREFIX = process.env.API_PREFIX || "api/v1";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix("api/v1");
+  app.setGlobalPrefix(API_PREFIX);
 
   app.useGlobalPipes(
     new ValidationPipe({

@@ -28,6 +28,7 @@ lerna-debug.log*
 # === Turbo repo / Next.js / Cache ===
 .turbo/
 .next/
+.pnpm-store
 
 # === Test Output ===
 coverage/
