@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile.dev
       target: frontend-dev
     ports:
-      - "3000:3000"
+      - "4040:4040"
     env_file:
       - ./apps/frontend/.env
     volumes:
@@ -66,4 +66,3 @@ volumes:
 networks:
   dev-network:
     driver: bridge
-
